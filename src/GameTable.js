@@ -1,10 +1,19 @@
-import { react, useState, useEffect, useRef } from 'react';
+import { React, useState, useEffect, useRef } from 'react';
 import Card from './Card'
 import axios from 'axios';
 
 const GameTable = () => {
-  const [cards, setCards] = useState(null);
-  let deckId = useRef();
+  const [cards, setCards] = useState([]);
+  const deckId = useRef();
+  const handleChange = async () => {
+    const res = await axios.get(`http://deckofcardsapi.com/api/deck/${deckId.current}/draw/?count=1`);
+    const {code, image} = res.data.cards[0];
+    setCards(cardArr => [
+      ...cardArr,
+      {code, image}
+    ])
+  };
+  
   useEffect(() => {
     (async () => {
       const res = await axios.get('http://deckofcardsapi.com/api/deck/new/');
@@ -16,10 +25,10 @@ const GameTable = () => {
   return (
     <div>
       <div>
-        <button>Gimme a card!</button>
+        <button onClick={handleChange}>Gimme a card!</button>
       </div>
       <div>
-        {cards ? cards.map(card => <Card image={card.image} />) : 'Loading...'}
+        {cards.length !== 0 ? cards.map(card => <Card key={card.code} image={card.image} />) : 'No cards drawn...'}
       </div>
     </div>
   )
