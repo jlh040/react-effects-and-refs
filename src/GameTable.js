@@ -43,7 +43,7 @@ const GameTable = () => {
   return (
     <div>
       <div>
-        <button onClick={handleChange}>Gimme a card!</button>
+        <button onClick={handleChange}>{isDrawing ? 'Stop drawing' : 'Start drawing'}</button>
       </div>
       <div>
         {cards.length !== 0 ? cards.map(card => <Card key={card.code} image={card.image} />) : 'No cards drawn...'}
