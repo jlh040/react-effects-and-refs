@@ -8,21 +8,14 @@ const GameTable = () => {
   const deckId = useRef();
   const intervalId = useRef()
   const handleChange = () => {
-    if (isDrawing === true) {
-      clearInterval(intervalId.current);
-      setIsDrawing(false)
-    }
-    else {
-      setIsDrawing(true)
-    }
+    isDrawing ? setIsDrawing(false) : setIsDrawing(true);
   };
 
   useEffect(() => {
     (async () => {
       const res = await axios.get('http://deckofcardsapi.com/api/deck/new/');
       deckId.current = res.data.deck_id;
-      await axios.get(`http://deckofcardsapi.com/api/deck/${deckId.current}/shuffle/`)
-
+      await axios.get(`http://deckofcardsapi.com/api/deck/${deckId.current}/shuffle/`);
     })();
   }, []);
 
@@ -30,10 +23,10 @@ const GameTable = () => {
     if (isDrawing) {
       intervalId.current = setInterval(async () => {
         const res = await axios.get(`http://deckofcardsapi.com/api/deck/${deckId.current}/draw/?count=1`);
-      
         if (res.data.error) {
           alert('Error: no cards remaining!');
           clearInterval(intervalId.current);
+          return;
         }
   
         const {code, image} = res.data.cards[0];
@@ -42,7 +35,8 @@ const GameTable = () => {
           {code, image}
         ])
         }, 1000)
-    }
+    };
+    return () => clearInterval(intervalId.current)
   }, [isDrawing])
 
 
