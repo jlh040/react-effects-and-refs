@@ -1,3 +1,4 @@
+import GameTable from './GameTable';
 import './App.css';
 
 function App() {
