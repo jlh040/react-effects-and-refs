@@ -7,6 +7,9 @@ const GameTable = () => {
 
   return (
     <div>
+      <div>
+        <button>Gimme a card!</button>
+      </div>
       {cards.map(card => <Card image={card.image} />)}
     </div>
   )
