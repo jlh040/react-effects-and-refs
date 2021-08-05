@@ -8,7 +8,13 @@ const GameTable = () => {
   const deckId = useRef();
   const intervalId = useRef()
   const handleChange = () => {
-    isDrawing ? clearInterval(intervalId) && setIsDrawing(false) : setIsDrawing(true);
+    if (isDrawing === true) {
+      clearInterval(intervalId.current);
+      setIsDrawing(false)
+    }
+    else {
+      setIsDrawing(true)
+    }
   };
 
   useEffect(() => {
@@ -27,8 +33,7 @@ const GameTable = () => {
       
         if (res.data.error) {
           alert('Error: no cards remaining!');
-          clearInterval(intervalId);
-          return;
+          clearInterval(intervalId.current);
         }
   
         const {code, image} = res.data.cards[0];
