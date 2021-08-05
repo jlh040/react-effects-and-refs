@@ -1,10 +1,14 @@
+# Functionality
+
+This is Springboard exercise 39.9.11. It is a simple app that allows a user to click on a button, and then a card will be displayed on the page every second thereafter. If the button is clicked again, the cards will stop being added to the page. Once there are no more cards in the deck, a message will be displayed alerting the user of this. The main purpose of this app was to allow me to get some practice working with **useEffect** and **useRef**.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
-In the project directory, you can run:
+First, run `npm install` to download all of the project dependencies, then, in the project directory, you can run:
 
 ### `npm start`
 
